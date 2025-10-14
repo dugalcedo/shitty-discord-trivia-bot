@@ -27,7 +27,7 @@ client.on('messageCreate', async (message) => {
         return message.reply("Thanks for the ping, m8! Wahey!")
     }
 
-    if (sanitized === '!hitmechegger') {
+    if (['!hitmechegger', '!hitme', '!hitmecheggers', '!wahey'].includes(sanitized)) {
         try {
             const txt = await hitMeChegger(authorId)
             return message.reply(txt)

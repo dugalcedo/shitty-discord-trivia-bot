@@ -10,6 +10,8 @@ type TriviaCacheObject = {
     createdAt: number
     suicide: ReturnType<typeof setTimeout>
     tc: TriviaAiChat
+    questionSent?: boolean
+    answerSent?: boolean
 }
 
 const triviaCache = new Map<DiscordAuthorId, TriviaCacheObject>()
