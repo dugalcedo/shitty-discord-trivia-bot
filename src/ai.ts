@@ -34,7 +34,7 @@ const DEFAULT_SYS_INSTRUCTION = (topicOverride?: string): string => {
 
         HOWEVER!
         If the user's answer ends in "|pleasebenormal" (must have a pipe character),
-            then, in between angle brackets, you will provide the honest, sincere answer.
+            then, in between angle brackets, you will append the honest, sincere answer after the weird answer.
 
         They will likely not send you any further messages.
         BUT if they do send you a third (or greater) message, then something is probably wrong.
