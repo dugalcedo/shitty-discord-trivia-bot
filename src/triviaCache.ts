@@ -16,7 +16,7 @@ type TriviaCacheObject = {
 
 const triviaCache = new Map<DiscordAuthorId, TriviaCacheObject>()
 
-export const registerNewQuestion = (id: DiscordAuthorId) => {
+export const registerNewQuestion = (id: DiscordAuthorId, topicOverride?: string) => {
     if (triviaCache.has(id)) {
         const obj = triviaCache.get(id)
         clearTimeout(obj?.suicide)
@@ -29,7 +29,7 @@ export const registerNewQuestion = (id: DiscordAuthorId) => {
         suicide: setTimeout(() => {
             triviaCache.delete(id)
         }, TRIVIA_CACHE_OBJECT_LIFETIME),
-        tc: new TriviaAiChat()
+        tc: new TriviaAiChat({topicOverride})
     }
 
     triviaCache.set(id, obj)
@@ -50,10 +50,10 @@ export const getQuestionMaybe = (id: DiscordAuthorId) => {
     return obj
 }
 
-export const getQuestionOrNew = (id: DiscordAuthorId) => {
+export const getQuestionOrNew = (id: DiscordAuthorId, topicOverride?: string) => {
     const obj = getQuestionMaybe(id)
     if (obj) return obj;
-    return registerNewQuestion(id)
+    return registerNewQuestion(id, topicOverride)
 }
 
 export const deleteQuestion = (id: DiscordAuthorId) => {

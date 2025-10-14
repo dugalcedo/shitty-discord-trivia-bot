@@ -4,9 +4,9 @@ const genai_1 = require("@google/genai");
 const env_js_1 = require("./env.js");
 const nutrients_js_1 = require("./nutrients.js");
 const DEFAULT_INITAL_Q = `NEW QUESTION`;
-const DEFAULT_SYS_INSTRUCTION = () => {
+const DEFAULT_SYS_INSTRUCTION = (topicOverride) => {
     const randomNormalCat = nutrients_js_1.normalCategories[Math.floor(Math.random() * nutrients_js_1.normalCategories.length)];
-    const randomShitCat = nutrients_js_1.shitNoOneCaresAbout[Math.floor(Math.random() * nutrients_js_1.shitNoOneCaresAbout.length)];
+    const randomShitCat = topicOverride || nutrients_js_1.shitNoOneCaresAbout[Math.floor(Math.random() * nutrients_js_1.shitNoOneCaresAbout.length)];
     return `
         First, remember these variables:
         SECRET_CATEGORY=\`${randomNormalCat}\`
@@ -43,6 +43,10 @@ class TriviaAiChat {
     question = null;
     state = 'idle';
     answerReaction = null;
+    topicOverride;
+    constructor(init) {
+        this.topicOverride = init?.topicOverride;
+    }
     async getQuestion() {
         if (this.answerReaction) {
             throw new Error("You already answered.");
@@ -55,7 +59,7 @@ class TriviaAiChat {
             this.chat = ai.chats.create({
                 model: 'gemini-2.5-flash',
                 config: {
-                    systemInstruction: DEFAULT_SYS_INSTRUCTION()
+                    systemInstruction: DEFAULT_SYS_INSTRUCTION(this.topicOverride)
                 }
             });
             const res = await this.chat.sendMessage({ message: DEFAULT_INITAL_Q });

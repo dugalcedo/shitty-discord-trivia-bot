@@ -3,9 +3,9 @@ import { GEMINI_API_KEY } from "./env.js"
 import { shitNoOneCaresAbout, normalCategories } from "./nutrients.js";
 
 const DEFAULT_INITAL_Q = `NEW QUESTION`
-const DEFAULT_SYS_INSTRUCTION = (): string => {
+const DEFAULT_SYS_INSTRUCTION = (topicOverride?: string): string => {
     const randomNormalCat = normalCategories[Math.floor(Math.random()*normalCategories.length)]
-    const randomShitCat = shitNoOneCaresAbout[Math.floor(Math.random()*shitNoOneCaresAbout.length)]
+    const randomShitCat = topicOverride || shitNoOneCaresAbout[Math.floor(Math.random()*shitNoOneCaresAbout.length)]
 
     return `
         First, remember these variables:
@@ -49,12 +49,21 @@ type TrivaAiChatState = (
     | 'dead'
 )
 
+type TriviaAiChatInit = {
+    topicOverride?: string
+}
+
 export default class TriviaAiChat {
     chat: Chat | null = null
     started: boolean = false
     question: string | null = null
     state: TrivaAiChatState = 'idle'
     answerReaction: string | null = null
+    topicOverride?: string
+
+    constructor(init?: TriviaAiChatInit) {
+        this.topicOverride = init?.topicOverride
+    }
 
     async getQuestion() {
         if (this.answerReaction) {
@@ -71,7 +80,7 @@ export default class TriviaAiChat {
             this.chat = ai.chats.create({
                 model: 'gemini-2.5-flash',
                 config: {
-                    systemInstruction: DEFAULT_SYS_INSTRUCTION()
+                    systemInstruction: DEFAULT_SYS_INSTRUCTION(this.topicOverride)
                 }
             })
 

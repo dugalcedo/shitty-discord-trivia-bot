@@ -7,7 +7,7 @@ exports.deleteQuestion = exports.getQuestionOrNew = exports.getQuestionMaybe = e
 const ai_js_1 = __importDefault(require("./ai.js"));
 const TRIVIA_CACHE_OBJECT_LIFETIME = 1000 * 60 * 5;
 const triviaCache = new Map();
-const registerNewQuestion = (id) => {
+const registerNewQuestion = (id, topicOverride) => {
     if (triviaCache.has(id)) {
         const obj = triviaCache.get(id);
         clearTimeout(obj?.suicide);
@@ -19,7 +19,7 @@ const registerNewQuestion = (id) => {
         suicide: setTimeout(() => {
             triviaCache.delete(id);
         }, TRIVIA_CACHE_OBJECT_LIFETIME),
-        tc: new ai_js_1.default()
+        tc: new ai_js_1.default({ topicOverride })
     };
     triviaCache.set(id, obj);
     return obj;
@@ -36,11 +36,11 @@ const getQuestionMaybe = (id) => {
     return obj;
 };
 exports.getQuestionMaybe = getQuestionMaybe;
-const getQuestionOrNew = (id) => {
+const getQuestionOrNew = (id, topicOverride) => {
     const obj = (0, exports.getQuestionMaybe)(id);
     if (obj)
         return obj;
-    return (0, exports.registerNewQuestion)(id);
+    return (0, exports.registerNewQuestion)(id, topicOverride);
 };
 exports.getQuestionOrNew = getQuestionOrNew;
 const deleteQuestion = (id) => {

@@ -10,8 +10,8 @@ const client = new discord_js_1.Client({
         discord_js_1.GatewayIntentBits.MessageContent, // lets the bot read messages? must be enabled in discordDev?
     ]
 });
-async function hitMeChegger(id) {
-    const obj = (0, triviaCache_js_1.getQuestionOrNew)(id);
+async function hitMeChegger(id, topicOverride) {
+    const obj = (0, triviaCache_js_1.getQuestionOrNew)(id, topicOverride);
     if (!obj)
         throw new Error("INTERNAL ERROR: Failed to get question.");
     const q = await obj.tc.getQuestion();
@@ -21,13 +21,15 @@ client.on('messageCreate', async (message) => {
     if (message.author.bot)
         return;
     const authorId = message.author.id;
-    const sanitized = message.content.trim().toLowerCase().replaceAll(/\s+/gm, ' ');
+    const [prompt, args] = message.content.split('|');
+    const sanitized = prompt.trim().toLowerCase().replaceAll(/\s+/gm, ' ');
+    const topicOverride = (args || "").trim().toLowerCase().replaceAll(/\s+/gm, ' ') || undefined;
     if (sanitized === '!ping') {
         return message.reply("Thanks for the ping, m8! Wahey!");
     }
     if (['!hitmechegger', '!hitme', '!hitmecheggers', '!wahey'].includes(sanitized)) {
         try {
-            const txt = await hitMeChegger(authorId);
+            const txt = await hitMeChegger(authorId, topicOverride);
             return message.reply(txt);
         }
         catch (error) {
