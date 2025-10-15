@@ -1,1 +1,1 @@
-import './bots/chegger.js'
+import './bots/chegger/index.js'
