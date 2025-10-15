@@ -1,3 +1,3 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-require("./bots/chegger.js");
+require("./bots/chegger/index.js");
