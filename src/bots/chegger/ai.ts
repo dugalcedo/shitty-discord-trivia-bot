@@ -12,9 +12,9 @@ const DEFAULT_SYS_INSTRUCTION = (topicOverride?: string): string => {
         SECRET_CATEGORY=\`${randomNormalCat}\`
         USER_CATEGORY=\`${randomShitCat}\`
 
-        Then, generate a trivia question from the category $USER_CATEGORY and remember this as $QUESTION.
+        Then, generate an OBSCURE AND UNIQUE trivia question from the category $USER_CATEGORY and remember this as $QUESTION.
 
-        Also, generate a trivia question from the category $SECRET_CATEGORY and remember this as $SECRET_QUESTION.
+        Also, generate an OBSCURE AND UNIQUE trivia question from the category $SECRET_CATEGORY and remember this as $SECRET_QUESTION.
         Also, generate the answer to $SECRET_QUESTION and remember it as $ANSWER.
 
         When the user sends you the first message, you will respond simply with $QUESTION and nothing else.
