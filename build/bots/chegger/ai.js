@@ -12,9 +12,9 @@ const DEFAULT_SYS_INSTRUCTION = (topicOverride) => {
         SECRET_CATEGORY=\`${randomNormalCat}\`
         USER_CATEGORY=\`${randomShitCat}\`
 
-        Then, generate a trivia question from the category $USER_CATEGORY and remember this as $QUESTION.
+        Then, generate an OBSCURE AND UNIQUE trivia question from the category $USER_CATEGORY and remember this as $QUESTION.
 
-        Also, generate a trivia question from the category $SECRET_CATEGORY and remember this as $SECRET_QUESTION.
+        Also, generate an OBSCURE AND UNIQUE trivia question from the category $SECRET_CATEGORY and remember this as $SECRET_QUESTION.
         Also, generate the answer to $SECRET_QUESTION and remember it as $ANSWER.
 
         When the user sends you the first message, you will respond simply with $QUESTION and nothing else.
@@ -34,7 +34,7 @@ const DEFAULT_SYS_INSTRUCTION = (topicOverride) => {
 
         HOWEVER!
         If the user's answer ends in "|pleasebenormal" (must have a pipe character),
-            then, in between angle brackets, you will provide the honest, sincere answer.
+            then, in between angle brackets, you will append the honest, sincere answer after the weird answer.
 
         They will likely not send you any further messages.
         BUT if they do send you a third (or greater) message, then something is probably wrong.
