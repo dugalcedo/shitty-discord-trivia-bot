@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const genai_1 = require("@google/genai");
-const env_js_1 = require("./env.js");
+const env_js_1 = require("../../env.js");
 const nutrients_js_1 = require("./nutrients.js");
 const DEFAULT_INITAL_Q = `NEW QUESTION`;
 const DEFAULT_SYS_INSTRUCTION = (topicOverride) => {

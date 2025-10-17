@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const env_js_1 = require("./env.js");
+const env_js_1 = require("../../env.js");
 const discord_js_1 = require("discord.js");
 const triviaCache_js_1 = require("./triviaCache.js");
 const client = new discord_js_1.Client({

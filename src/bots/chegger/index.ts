@@ -1,4 +1,4 @@
-import { BOT_TOKEN } from "./env.js";
+import { BOT_TOKEN } from "../../env.js";
 import { Client, GatewayIntentBits, type OmitPartialGroupDMChannel, type Message } from "discord.js";
 import { getQuestionOrNew, getQuestionMaybe, deleteQuestion } from "./triviaCache.js";
 

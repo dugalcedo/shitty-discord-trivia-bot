@@ -1,5 +1,5 @@
 import { GoogleGenAI, type Chat } from "@google/genai";
-import { GEMINI_API_KEY } from "./env.js"
+import { GEMINI_API_KEY } from "../../env.js"
 import { shitNoOneCaresAbout, normalCategories } from "./nutrients.js";
 
 const DEFAULT_INITAL_Q = `NEW QUESTION`
